@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: ENC(6m/mM7a6AF0we3GJfyZcYtkAS02AMLwHHZzDufwu8EwK+hVQ1afKpnbyAwHmLsfdrW2Up6BpBpMu9k+m4/d2w/6Z3CvthTHmoaHCYK2RRt54hHwgsIssMqUxkf86mRcb29EClKNoyHi9siWEvbPnIAuwVVWzXtQxZCqTa4Bcx7ro9iF29Ojq214kKZ+qCX6V)
+    username: ENC(LJC/uBe6NdTlhJIVoCOflQ==)
+    password: ENC(Hvy08IN0YruPhhyG3haSZA==)
+    hikari:
+      auto-commit: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
