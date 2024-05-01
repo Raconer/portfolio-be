@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      minimum-idle: 10
+      maximum-pool-size: 50
+  jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    path: /custom/swagger.html
+    supported-submit-methods: []
