@@ -1,10 +1,11 @@
 spring:
   datasource:
-    url: ENC(6m/mM7a6AF0we3GJfyZcYtkAS02AMLwHHZzDufwu8EwK+hVQ1afKpnbyAwHmLsfdrW2Up6BpBpMu9k+m4/d2w/6Z3CvthTHmoaHCYK2RRt54hHwgsIssMqUxkf86mRcb29EClKNoyHi9siWEvbPnIAuwVVWzXtQxZCqTa4Bcx7ro9iF29Ojq214kKZ+qCX6V)
+    # jdbc:mysql://localhost:3306/portfolio? -> 뒤 부터는 제거
+    url: ENC(1+D+bUX+XPm3NvR9xsAIPSlxBwNQsrTwGedm+qeJC8Riy82Az/JlO7rkSV8uimTJFkTmZLYLj2uJpP/m1MNvE/ojAqUjef2OngrcMAcf9uNK4qm2q67bcS7VU8FF9c//imECXE5JsnyzHrY2zAnBgsBz5Di44PZ8hZ/vnI/N8GeqHUO5XZIkIqrEJhXn5c3j)
     username: ENC(LJC/uBe6NdTlhJIVoCOflQ==)
     password: ENC(Hvy08IN0YruPhhyG3haSZA==)
     hikari:
-      auto-commit: false
+      auto-commit: true
   jpa:
     hibernate:
       ddl-auto: update
