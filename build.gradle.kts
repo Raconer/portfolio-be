@@ -6,6 +6,8 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     kotlin("kapt") version "1.9.23"
+    // JPA 생성자 초기화 제거 용도
+    kotlin("plugin.jpa") version "1.9.24"
 }
 
 group = "com.portfolio"

@@ -18,6 +18,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+  sql:
+    init:
+      schema-locations: classpath:sql/schema.sql
+  devtools:
+    remote:
+      restart:
+        enabled: false
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
