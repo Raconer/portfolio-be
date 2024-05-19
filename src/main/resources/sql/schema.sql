@@ -1,6 +1,6 @@
-/*-- portfolio.job_type definition
-
-CREATE TABLE `job_type` (
+/*
+-- portfolio.job_type definition
+CREATE TABLE IF NOT EXISTS `job_type` (
                             `id` bigint NOT NULL AUTO_INCREMENT,
                             `create_at` datetime(6) NOT NULL,
                             `update_at` datetime(6) DEFAULT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `job_type` (
 
 -- portfolio.template definition
 
-CREATE TABLE `template` (
+CREATE TABLE IF NOT EXISTS `template` (
                             `id` bigint NOT NULL AUTO_INCREMENT,
                             `create_at` datetime(6) NOT NULL,
                             `update_at` datetime(6) DEFAULT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `template` (
 
 -- portfolio.users definition
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
                          `id` bigint NOT NULL AUTO_INCREMENT,
                          `create_at` datetime(6) NOT NULL,
                          `update_at` datetime(6) DEFAULT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `users` (
 
 -- portfolio.company definition
 
-CREATE TABLE `company` (
+CREATE TABLE IF NOT EXISTS `company` (
                            `id` bigint NOT NULL AUTO_INCREMENT,
                            `create_at` datetime(6) NOT NULL,
                            `update_at` datetime(6) DEFAULT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `company` (
 
 -- portfolio.job definition
 
-CREATE TABLE `job` (
+CREATE TABLE IF NOT EXISTS `job` (
                        `id` bigint NOT NULL AUTO_INCREMENT,
                        `create_at` datetime(6) NOT NULL,
                        `update_at` datetime(6) DEFAULT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `job` (
 
 -- portfolio.job_skill definition
 
-CREATE TABLE `job_skill` (
+CREATE TABLE IF NOT EXISTS `job_skill` (
                              `id` bigint NOT NULL AUTO_INCREMENT,
                              `create_at` datetime(6) NOT NULL,
                              `update_at` datetime(6) DEFAULT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `job_skill` (
 
 -- portfolio.portfolio definition
 
-CREATE TABLE `portfolio` (
+CREATE TABLE IF NOT EXISTS `portfolio` (
                              `id` bigint NOT NULL AUTO_INCREMENT,
                              `create_at` datetime(6) NOT NULL,
                              `update_at` datetime(6) DEFAULT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `portfolio` (
 
 -- portfolio.portfolio_job_skill definition
 
-CREATE TABLE `portfolio_job_skill` (
+CREATE TABLE IF NOT EXISTS `portfolio_job_skill` (
                                        `create_at` datetime(6) NOT NULL,
                                        `update_at` datetime(6) DEFAULT NULL,
                                        `portfolio_id` bigint NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `portfolio_job_skill` (
 
 -- portfolio.user_job definition
 
-CREATE TABLE `user_job` (
+CREATE TABLE IF NOT EXISTS `user_job` (
                             `create_at` datetime(6) NOT NULL,
                             `update_at` datetime(6) DEFAULT NULL,
                             `job_id` bigint NOT NULL,
@@ -121,4 +121,5 @@ CREATE TABLE `user_job` (
                             KEY `FKg4tq2lwi062my4xy4xdl52a1` (`users_id`),
                             CONSTRAINT `FKg4tq2lwi062my4xy4xdl52a1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`),
                             CONSTRAINT `FKia2o1pm0plymfbt26ps56ox5l` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;*/
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+*/
