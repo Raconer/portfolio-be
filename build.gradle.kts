@@ -26,7 +26,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    // DB
+    // Spring Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    // JJWT
+    implementation("io.jsonwebtoken:jjwt:0.12.5")
+
+    // DB - MySql
     runtimeOnly ("com.mysql:mysql-connector-j")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
@@ -42,7 +47,6 @@ dependencies {
 
     // SWAGGER
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
-
 
     // TEST
     developmentOnly("org.springframework.boot:spring-boot-devtools")
