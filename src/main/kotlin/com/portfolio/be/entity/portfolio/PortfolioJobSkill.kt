@@ -2,12 +2,7 @@ package com.portfolio.be.entity.portfolio
 
 import com.portfolio.be.entity.common.CommonEntity
 import com.portfolio.be.entity.job.JobSkill
-import jakarta.persistence.EmbeddedId
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.MapsId
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "portfolio_job_skill")

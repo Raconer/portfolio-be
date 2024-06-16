@@ -5,6 +5,8 @@ server:
     whitelabel:
       enabled: false
 spring:
+  application:
+    name: portfolio-be
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -34,3 +36,4 @@ springdoc:
   swagger-ui:
     path: /custom/swagger.html
     supported-submit-methods: []
+

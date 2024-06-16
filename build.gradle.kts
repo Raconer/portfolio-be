@@ -62,5 +62,6 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> {
+    jvmArgs = listOf("-XX:+IgnoreUnrecognizedVMOptions", "-XX:+EnableDynamicAgentLoading")
     useJUnitPlatform()
 }

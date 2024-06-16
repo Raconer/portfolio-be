@@ -10,3 +10,13 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+# JWT
+# 60000 = 1m
+
+jwt:
+  secret:
+    key: ENC(SyElIxoBnMHO1Yky5usxIEVPnclOEAaKjJU7CMOfVtm9MGNEW7rLcp7FNUF8xTtb)
+  access:
+    expire: 10800000 # 1 Hour
+  refresh:
+    expire: 86400000 # 1 Day
