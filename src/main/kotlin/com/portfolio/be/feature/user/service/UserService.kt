@@ -1,4 +1,4 @@
-package com.portfolio.be.service
+package com.portfolio.be.feature.user.service
 
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
