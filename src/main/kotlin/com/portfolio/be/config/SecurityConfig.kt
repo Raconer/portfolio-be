@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 @Configuration
 @EnableWebSecurity
@@ -28,10 +29,11 @@ class SecurityConfig(
     @Throws(Exception::class)
     fun filterChain(http:HttpSecurity) : DefaultSecurityFilterChain {
         http
+            .csrf{
+                it.disable()
+            }
             .authorizeHttpRequests {
-                it.requestMatchers("/").permitAll()
-                    .anyRequest().authenticated()
-
+                it.anyRequest().permitAll()
             }.exceptionHandling {
                 it.authenticationEntryPoint(jwtAuthenticationEntryPoint)
             }

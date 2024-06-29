@@ -33,7 +33,11 @@ dependencies {
 
     // DB - MySql
     runtimeOnly ("com.mysql:mysql-connector-j")
+
+    // JPA
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // jpa query logging
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1")
 
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
@@ -47,6 +51,10 @@ dependencies {
 
     // SWAGGER
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+
+    // LOGGER
+    implementation("org.slf4j:slf4j-api:2.0.13")
+
 
     // TEST
     developmentOnly("org.springframework.boot:spring-boot-devtools")

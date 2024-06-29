@@ -12,6 +12,6 @@ import java.io.IOException
 class JwtAuthenticationEntryPoint : AuthenticationEntryPoint {
     @Throws(IOException::class, ServletException::class)
     override fun commence(request: HttpServletRequest?, response: HttpServletResponse?, authException: AuthenticationException?) {
-        TODO("Not yet implemented")
+
     }
 }

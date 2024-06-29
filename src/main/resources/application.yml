@@ -10,7 +10,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      connection-test-query: SELECT 1
+      # connection-test-query: SELECT 1
       minimum-idle: 10
       maximum-pool-size: 50
   jpa:
@@ -24,9 +24,8 @@ spring:
     init:
       schema-locations: classpath:sql/schema.sql
   devtools:
-    remote:
-      restart:
-        enabled: false
+    restart:
+      enabled: false
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
@@ -36,4 +35,7 @@ springdoc:
   swagger-ui:
     path: /custom/swagger.html
     supported-submit-methods: []
-
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

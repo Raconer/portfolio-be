@@ -1,7 +1,11 @@
 package com.portfolio.be.feature.sign.service
 
-import org.springframework.stereotype.Service
+import com.portfolio.be.feature.sign.dto.SignUpDTO
 
-@Service
-class SignService {
+interface SignService {
+    // CREATE
+    fun signUp(signUpDTO: SignUpDTO) : Boolean
+
+    // READ
+    fun signIn(username: String, password: String) : Boolean
 }
