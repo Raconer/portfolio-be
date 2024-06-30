@@ -17,12 +17,12 @@ class SignServiceProxy (
     private val logger = LoggerFactory.getLogger(SignServiceProxy::class.java)
 
     // CREATE
-    override fun signUp(signUp: SignUpDTO): Boolean {
+    override fun signUp(signUpDTO: SignUpDTO): Boolean {
         logger.info(":::: Start SignUp In Proxy:::: ")
 
-        signUp.password = this.passwordEncoder.encode(signUp.password)
+        signUpDTO.password = this.passwordEncoder.encode(signUpDTO.password)
 
-        return this.signService.signUp(signUp)
+        return this.signService.signUp(signUpDTO)
     }
     // READ
     override fun signIn(username: String, password: String) : Boolean {
