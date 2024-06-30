@@ -15,9 +15,9 @@ abstract class CommonEntity(
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    val createAt:LocalDateTime? = null,
+    var createAt:LocalDateTime? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
     @Column
-    val updateAt:LocalDateTime? = null
+    var updateAt:LocalDateTime? = null
 )

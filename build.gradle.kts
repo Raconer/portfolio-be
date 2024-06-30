@@ -26,6 +26,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    // Validate
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     // Spring Security
     implementation("org.springframework.boot:spring-boot-starter-security")
     // JJWT

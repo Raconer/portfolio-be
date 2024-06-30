@@ -1,9 +1,9 @@
 package com.portfolio.be.feature.sign.controller
 
+import com.portfolio.be.common.dto.DefResponse
 import com.portfolio.be.feature.sign.controller.valid.SignUpValid
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import com.portfolio.be.feature.sign.service.SignService
-import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
@@ -24,17 +24,16 @@ class SignController (
     @PostMapping("/up")
     fun signUp(
         @RequestBody
-        @Valid
         signUpDTO: SignUpDTO,
         result:BindingResult
     ) : ResponseEntity<Any> {
         logger.info(":::: Start SignUp :::: ")
         signUpValid.validate(signUpDTO, result)
         if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.allErrors);
+            return DefResponse.valid(result.allErrors)
         }
 
-        return ResponseEntity.ok(signService.signUp(signUpDTO))
+        return DefResponse.ok(signService.signUp(signUpDTO))
     }
 
     // READ

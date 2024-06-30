@@ -5,7 +5,6 @@ import com.portfolio.be.feature.user.repository.UsersRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.validation.Errors
-import org.springframework.validation.ValidationUtils
 import org.springframework.validation.Validator
 
 @Component
@@ -25,8 +24,12 @@ class SignUpValid (
         signUpDTO = target as SignUpDTO
 
         // 중복 이메일 체크
-        if (this.usersRepository.countByEmail(signUpDTO.email) > 0) {
-            errors.rejectValue("email", "email.duplicate", "Email is already in use");
+        signUpDTO.email.let{ email ->
+            if(email.isEmpty()){
+                errors.rejectValue("email", "email.empty", "Email is Not Empty")
+            }else if (this.usersRepository.countByEmail(email) > 0) {
+                errors.rejectValue("email", "email.duplicate", "Email is already in use");
+            }
         }
 
     }
