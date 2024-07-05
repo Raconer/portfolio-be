@@ -1,6 +1,5 @@
 package com.portfolio.be.feature.sign.service
 
-import com.portfolio.be.feature.sign.dto.SignDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 

@@ -1,7 +1,6 @@
 package com.portfolio.be.feature.sign.dto
 
 import jakarta.validation.constraints.NotEmpty
-import org.springframework.security.core.userdetails.UserDetails
 
 data class SignInDTO(
     @field:NotEmpty
