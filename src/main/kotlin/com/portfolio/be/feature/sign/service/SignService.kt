@@ -8,5 +8,5 @@ interface SignService {
     fun signUp(signUpDTO: SignUpDTO) : Boolean
 
     // READ
-    fun signIn(signIn:SignInDTO) : SignInDTO.ResponseDTO
+    fun signIn(signInDTO:SignInDTO) : SignInDTO.ResponseDTO
 }

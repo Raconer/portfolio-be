@@ -34,11 +34,11 @@ class SignServiceImpl(
         return true
     }
 
-    override fun signIn(signIn:SignInDTO) : SignInDTO.ResponseDTO {
-        val email = signIn.email
+    override fun signIn(signInDTO:SignInDTO) : SignInDTO.ResponseDTO {
+        val email = signInDTO.email
         val userInfo = this.userService.loadUserByUsername(email)
 
-        if(passwordEncoder.matches(userInfo.password, signIn.password)){
+        if(passwordEncoder.matches(userInfo.password, signInDTO.password)){
             throw BadCredentialsException(Constants.SIGN_IN_NOT_MATCH)
         }
 

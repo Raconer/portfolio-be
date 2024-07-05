@@ -46,6 +46,11 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+
+
     // jasypt
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
 
