@@ -1,7 +1,7 @@
 package com.portfolio.be.feature.sign.controller.valid
 
 import com.portfolio.be.feature.sign.dto.SignUpDTO
-import com.portfolio.be.feature.user.repository.UsersRepository
+import com.portfolio.be.feature.user.repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.validation.Errors
@@ -9,7 +9,7 @@ import org.springframework.validation.Validator
 
 @Component
 class SignUpValid (
-    private val usersRepository: UsersRepository
+    private val userRepository: UserRepository
 ): Validator{
 
     private val logger = LoggerFactory.getLogger(SignUpValid::class.java)
@@ -27,7 +27,7 @@ class SignUpValid (
         signUpDTO.email.let{ email ->
             if(email.isEmpty()){
                 errors.rejectValue("email", "email.empty", "Email is Not Empty")
-            }else if (this.usersRepository.countByEmail(email) > 0) {
+            }else if (this.userRepository.countByEmail(email) > 0) {
                 errors.rejectValue("email", "email.duplicate", "Email is already in use");
             }
         }

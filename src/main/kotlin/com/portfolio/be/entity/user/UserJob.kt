@@ -10,8 +10,8 @@ class UserJob(
     @EmbeddedId
     val userJobId: UserJobId,
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("usersId")
-    var users: Users,
+    @MapsId("userId")
+    var user: User,
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("jobId")
     var job: Job

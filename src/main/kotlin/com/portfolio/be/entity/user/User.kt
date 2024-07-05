@@ -6,8 +6,8 @@ import com.portfolio.be.feature.sign.dto.SignUpDTO
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "`users`")
-data class Users(
+@Table(name = "`user`")
+data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long? = null,
@@ -16,7 +16,7 @@ data class Users(
     @Column
     val password:String,
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     val companyList:List<Company> = arrayListOf()
 ):CommonEntity() {
     constructor(signUp:SignUpDTO):this(email = signUp.email,
