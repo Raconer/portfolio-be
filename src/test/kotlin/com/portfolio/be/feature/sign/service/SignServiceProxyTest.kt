@@ -1,7 +1,6 @@
 package com.portfolio.be.feature.sign.service
 
 import com.portfolio.be.PortfolioBeApplicationTests
-import com.portfolio.be.common.Constants
 import com.portfolio.be.common.obj.DataFaker
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO

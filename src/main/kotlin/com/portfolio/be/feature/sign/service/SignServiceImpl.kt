@@ -1,5 +1,6 @@
 package com.portfolio.be.feature.sign.service
 
+import com.portfolio.be.common.Constants
 import com.portfolio.be.common.enums.SignTokenEnum
 import com.portfolio.be.common.utils.JwtUtil
 import com.portfolio.be.entity.user.Users
@@ -38,7 +39,7 @@ class SignServiceImpl(
         val userInfo = this.userService.loadUserByUsername(email)
 
         if(passwordEncoder.matches(userInfo.password, signIn.password)){
-            throw BadCredentialsException("Not Equals Sign In Data")
+            throw BadCredentialsException(Constants.SIGN_IN_NOT_MATCH)
         }
 
         val token = this.jwtUtil.createToken(SignTokenEnum.ACCESS, email)
