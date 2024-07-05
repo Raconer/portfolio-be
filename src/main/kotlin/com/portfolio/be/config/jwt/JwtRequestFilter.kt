@@ -20,12 +20,13 @@ class JwtRequestFilter(
 
     private val logger = LoggerFactory.getLogger(JwtRequestFilter::class.java)
     private val SUB_LEN = Constants.TOKEN_PREFIX.length
-    private val EXCLUDE_URL = arrayListOf("/sign/up", "sign/in")
+    private val EXCLUDE_URL = arrayListOf<String>()
 
     override fun doFilterInternal(request: HttpServletRequest,
                                   response: HttpServletResponse,
                                   filterChain: FilterChain) {
 
+        this.logger.info(":::: Auth By Token ::::")
         val bearerToken = request.getHeader(Constants.AUTHORIZATION)
 
         if (bearerToken != null && bearerToken.isNotEmpty() && bearerToken.startsWith(Constants.TOKEN_PREFIX)) {
