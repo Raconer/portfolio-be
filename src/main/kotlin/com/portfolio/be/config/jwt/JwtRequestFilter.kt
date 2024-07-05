@@ -42,8 +42,8 @@ class JwtRequestFilter(
     }
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
+        this.log.info(":::: Check JWT Filter ::::")
         val uri = request.requestURI
-
         return this.EXCLUDE_URL.stream().findFirst().filter { prefix ->
             uri.startsWith(prefix)
         }.isPresent

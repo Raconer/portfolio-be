@@ -32,7 +32,9 @@ class SecurityConfig(
                 it.disable()
             }
             .authorizeHttpRequests {
-                it.anyRequest().permitAll()
+                it
+                    .requestMatchers("/sign/**").permitAll()
+                    .anyRequest().authenticated()
             }.exceptionHandling {
                 it.authenticationEntryPoint(jwtAuthenticationEntryPoint)
             }
