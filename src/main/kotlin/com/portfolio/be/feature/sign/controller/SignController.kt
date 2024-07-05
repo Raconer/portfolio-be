@@ -2,8 +2,10 @@ package com.portfolio.be.feature.sign.controller
 
 import com.portfolio.be.common.dto.DefResponse
 import com.portfolio.be.feature.sign.controller.valid.SignUpValid
+import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import com.portfolio.be.feature.sign.service.SignService
+import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
@@ -38,9 +40,13 @@ class SignController (
 
     // READ
     @PostMapping("/in")
-    fun signIn() : Boolean {
+    fun signIn(
+        @RequestBody
+        @Valid
+        signIn: SignInDTO
+    ) : SignInDTO.ResponseDTO {
         logger.info(":::: Start SignIn :::: ")
-        return this.signService.signIn("username", "password")
+        return this.signService.signIn(signIn)
     }
 
 }

@@ -8,4 +8,8 @@ object DataFaker {
     fun randomEmail(): String {
         return this.faker.internet().emailAddress()
     }
+
+    fun randomUsername(): String{
+        return this.faker.name().username()
+    }
 }

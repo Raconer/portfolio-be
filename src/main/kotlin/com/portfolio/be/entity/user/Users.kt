@@ -19,6 +19,6 @@ data class Users(
     @OneToMany(mappedBy = "users")
     val companyList:List<Company> = arrayListOf()
 ):CommonEntity() {
-    constructor(signUp:SignUpDTO):this(email = signUp.email!!,
+    constructor(signUp:SignUpDTO):this(email = signUp.email,
                                        password = signUp.password)
 }

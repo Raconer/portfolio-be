@@ -18,11 +18,16 @@ class JwtUtil {
     @Value("\${jwt.refresh.expire}")
     private val REFRESH_EXPIRE: Long = 0
 
-    fun createToken(type:SignTokenEnum, payloads: Map<String, String>): String {
+    fun createToken(type:SignTokenEnum, email:String? = null): String {
         val key = this.getSigningKey()
 
+        val payloads: MutableMap<String, String> = mutableMapOf()
         val issuedAt = Date()
         val expiration = Date()
+
+        email?.let{
+            payloads["email"] = it
+        }
 
         expiration.time +=
             if(type == SignTokenEnum.REFRESH) this.REFRESH_EXPIRE

@@ -19,11 +19,11 @@ class JwtUtilTest @Autowired constructor(
     @Order(1)
     fun `Token Create`() {
         // GIVEN
-        val payload = mutableMapOf<String, String>()
-        payload["email"] = email
+        // val payload = mutableMapOf<String, String>()
+        // payload["email"] = email
 
         // WHEN
-        token = this.jwtUtil.createToken(SignTokenEnum.ACCESS, payload)
+        token = this.jwtUtil.createToken(SignTokenEnum.ACCESS, email)
 
         // THEN
         Assertions.assertNotNull(token)

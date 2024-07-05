@@ -1,5 +1,6 @@
 package com.portfolio.be.feature.sign.service
 
+import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service
 class SignServiceProxy (
     @Qualifier("signServiceImpl")
     private val signService: SignService,
-    private val passwordEncoder: PasswordEncoder
 ) : SignService{
     private val logger = LoggerFactory.getLogger(SignServiceProxy::class.java)
 
@@ -20,12 +20,11 @@ class SignServiceProxy (
     override fun signUp(signUpDTO: SignUpDTO): Boolean {
         logger.info(":::: Start SignUp In Proxy:::: ")
 
-        signUpDTO.password = this.passwordEncoder.encode(signUpDTO.password)
 
         return this.signService.signUp(signUpDTO)
     }
     // READ
-    override fun signIn(username: String, password: String) : Boolean {
-        return this.signService.signIn(username, password)
+    override fun signIn(signIn: SignInDTO) : SignInDTO.ResponseDTO {
+        return this.signService.signIn(signIn)
     }
 }

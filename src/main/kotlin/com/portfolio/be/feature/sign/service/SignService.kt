@@ -1,5 +1,7 @@
 package com.portfolio.be.feature.sign.service
 
+import com.portfolio.be.feature.sign.dto.SignDTO
+import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 
 interface SignService {
@@ -7,5 +9,5 @@ interface SignService {
     fun signUp(signUpDTO: SignUpDTO) : Boolean
 
     // READ
-    fun signIn(username: String, password: String) : Boolean
+    fun signIn(signIn:SignInDTO) : SignInDTO.ResponseDTO
 }

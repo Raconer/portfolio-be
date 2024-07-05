@@ -17,6 +17,7 @@ abstract  class PortfolioBeApplicationTests {
         @BeforeAll
         fun beforeAll() {
             this.logger.info("Set Before All")
+            System.setProperty("jasypt.encryptor.password", "test");
         }
     }
 
