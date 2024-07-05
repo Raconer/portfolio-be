@@ -1,7 +1,7 @@
 package com.portfolio.be.entity.company
 
 import com.portfolio.be.entity.common.CommonEntity
-import com.portfolio.be.entity.user.Users
+import com.portfolio.be.entity.user.User
 import jakarta.persistence.*
 import java.time.LocalDate
 
@@ -13,7 +13,7 @@ class Company(
     var id:Long? = null,
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    var users: Users,
+    var user: User,
     @Column
     val name:String,
     @Column

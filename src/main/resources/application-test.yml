@@ -1,0 +1,26 @@
+jasypt:
+  encryptor:
+    password: test
+
+spring:
+  datasource:
+    # jdbc:mysql://localhost:3306/portfolio? -> 뒤 부터는 제거
+    url: ENC(HJ2JufjWaw0OxltynKud72g2I5hrINEJ52PdIwcwONRddOoYV1bzQR7AAg5Bcz8CKrAeFLARUnT1Sfa9M+jZIarHUWvtdLn+bm+mAAXuCkUZ2h0WSRPePaDywpX0VsMh89PSq+0qx/jii/0aF+gFmAs+4Z+12FPx9iTYwyQKS/R/p9fQXs9acq/IU7uR+SfD)
+    username: ENC(oRetQptrSDf8RqdMnSX9Ng==)
+    password: ENC(JB9ZQ0qPSqtp5mRLmMAjQw==)
+    hikari:
+      auto-commit: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# JWT
+# 60000 = 1m
+jwt:
+  secret:
+    key: ENC(8bcHsDkIi6lNMyLwBiy2rPwV8ACzeAX3zNSmsQZBuxAoQ8gdEyxwYT4demmhMAOy)
+  access:
+    expire: 10800000 # 1 Hour
+  refresh:
+    expire: 86400000 # 1 Day

@@ -2,13 +2,12 @@ package com.portfolio.be.entity.user
 
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
-import jakarta.persistence.EmbeddedId
 import java.io.Serializable
 
 @Embeddable
 class UserJobId (
-    @Column(name = "users_id")
-    val usersId:Long,
+    @Column(name = "user_id")
+    val userId:Long,
     @Column(name = "job_id")
     val jobId:Long
 ):Serializable
