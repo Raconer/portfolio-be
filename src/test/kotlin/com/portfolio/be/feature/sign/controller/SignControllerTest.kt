@@ -1,6 +1,5 @@
 package com.portfolio.be.feature.sign.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.portfolio.be.PortfolioBeApplicationTests
 import com.portfolio.be.common.Constants
 import com.portfolio.be.common.dto.DefResponse
@@ -30,15 +29,13 @@ import org.springframework.transaction.annotation.Transactional
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class) // Order 어노테이션 적용
 class SignControllerTest @Autowired constructor(
-    private val mock: MockMvc,
-    private val objectMapper: ObjectMapper
+    private val mock: MockMvc
 ) : PortfolioBeApplicationTests() {
 
     private val logger: Logger = LoggerFactory.getLogger(SignControllerTest::class.java.getName())
 
     private val PATH = "/sign"
     private val EMAIL = DataFaker.randomEmail()
-    private var IS_SIGNED = false
     private var TOKEN: String? = null
     private var REFRESH_TOKEN: String? = null
 
@@ -50,7 +47,7 @@ class SignControllerTest @Autowired constructor(
     @Order(1)
     @Transactional
     fun `회원가입`() {
-        // 회원가입 로직 (이미 @BeforeAll에서 실행됨)
+        // GIVEN
         val signUpDTO = SignUpDTO(
             email = EMAIL,
             username = DataFaker.randomUsername(),
@@ -58,7 +55,7 @@ class SignControllerTest @Autowired constructor(
         )
         val jsonStr = Json.encodeToString(signUpDTO)
 
-        // 회원가입
+        // WHEN
         val result = this.mock.perform(
             MockMvcRequestBuilders.post("$PATH/up")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -69,6 +66,7 @@ class SignControllerTest @Autowired constructor(
 
         val data = Json.decodeFromString<DefResponse<SignUpDTO.ResponseDTO>>(result.response.contentAsString)
 
+        // THEN
         assertTrue( data.data?.success ?:false)
     }
 
@@ -77,6 +75,7 @@ class SignControllerTest @Autowired constructor(
     @Transactional
     fun `로그인`() {
 
+        // GIVEN
         this.회원가입()
 
         val signInDTO = SignInDTO(
@@ -84,7 +83,7 @@ class SignControllerTest @Autowired constructor(
             password = Constants.PASSWORD
         )
         val signInJsonStr = Json.encodeToString(signInDTO)
-
+        // WHEN
         val result: MvcResult = this.mock.perform(
             MockMvcRequestBuilders.post("$PATH/in")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -100,6 +99,7 @@ class SignControllerTest @Autowired constructor(
         logger.info(":::: token : $TOKEN ::::")
         logger.info(":::: refreshToken : $REFRESH_TOKEN ::::")
 
+        // THEN
         assertTrue(TOKEN != null && REFRESH_TOKEN != null)
     }
 
