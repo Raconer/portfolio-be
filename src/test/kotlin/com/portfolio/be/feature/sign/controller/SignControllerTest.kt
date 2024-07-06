@@ -49,25 +49,7 @@ class SignControllerTest @Autowired constructor(
         this.signUp()
 
         // 로그인
-        val signInDTO = SignInDTO(
-            email = EMAIL,
-            password = Constants.PASSWORD
-        )
-        val signInJsonStr = Json.encodeToString(signInDTO)
-
-        val result: MvcResult = this.mock.perform(
-            MockMvcRequestBuilders.post("$PATH/in")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(signInJsonStr)
-        ).andExpect(MockMvcResultMatchers.status().isOk)
-            .andDo(MockMvcResultHandlers.print())
-            .andReturn()
-
-        val signInResDTO = this.objectMapper.readValue(result.response.contentAsString, SignInDTO.ResponseDTO::class.java)
-        TOKEN = signInResDTO.token
-        REFRESH_TOKEN = signInResDTO.refreshToken
-        logger.info(":::: token : $TOKEN ::::")
-        logger.info(":::: refreshToken : $REFRESH_TOKEN ::::")
+       this.signIn()
     }
 
     private fun signUp(){
@@ -93,11 +75,33 @@ class SignControllerTest @Autowired constructor(
         IS_SIGNED = data.data?.success ?:false
     }
 
+    private fun signIn(){
+        val signInDTO = SignInDTO(
+            email = EMAIL,
+            password = Constants.PASSWORD
+        )
+        val signInJsonStr = Json.encodeToString(signInDTO)
+
+        val result: MvcResult = this.mock.perform(
+            MockMvcRequestBuilders.post("$PATH/in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(signInJsonStr)
+        ).andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(MockMvcResultHandlers.print())
+            .andReturn()
+
+        val signInResDTO = this.objectMapper.readValue(result.response.contentAsString, SignInDTO.ResponseDTO::class.java)
+        TOKEN = signInResDTO.token
+        REFRESH_TOKEN = signInResDTO.refreshToken
+        logger.info(":::: token : $TOKEN ::::")
+        logger.info(":::: refreshToken : $REFRESH_TOKEN ::::")
+    }
 
     @Test
     @Order(1)
     @Transactional
     fun `회원가입`() {
+        // 회원가입 로직 (이미 @BeforeAll에서 실행됨)
         assertTrue(IS_SIGNED)
     }
 
