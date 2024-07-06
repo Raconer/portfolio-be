@@ -1,6 +1,8 @@
 package com.portfolio.be.feature.sign.service
 
+import com.portfolio.be.common.Constants
 import com.portfolio.be.common.service.RedisService
+import com.portfolio.be.feature.sign.dto.RefreshDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import org.slf4j.LoggerFactory
@@ -19,15 +21,24 @@ class SignServiceProxy (
     private val logger = LoggerFactory.getLogger(SignServiceProxy::class.java)
 
     // CREATE
-    override fun signUp(signUpDTO: SignUpDTO): Boolean {
+    override fun signUp(signUpDTO: SignUpDTO): SignUpDTO.ResponseDTO {
         logger.info(":::: Start SignUp In Proxy:::: ")
-        logger.info(":::: ${this.redisService.save(signUpDTO.email, "test")} ::::")
-
         return this.signService.signUp(signUpDTO)
     }
     // READ
     override fun signIn(signInDTO: SignInDTO) : SignInDTO.ResponseDTO {
-        logger.info(":::: ${this.redisService.find(signInDTO.email)} ::::")
-        return this.signService.signIn(signInDTO)
+        val signInResDTO = this.signService.signIn(signInDTO)
+        this.redisService.save(Constants.REDIS_REFRESH_PREFIX + signInResDTO.refreshToken, signInDTO.email)
+
+        return signInResDTO
+    }
+
+    override fun refresh(refreshDTO: RefreshDTO): SignInDTO.ResponseDTO {
+        val data = this.redisService.find(Constants.REDIS_REFRESH_PREFIX + refreshDTO.refreshToken)
+        println(data)
+        return SignInDTO.ResponseDTO(
+            "",
+            ""
+        )
     }
 }

@@ -4,6 +4,7 @@ import com.portfolio.be.common.Constants
 import com.portfolio.be.common.enums.SignTokenEnum
 import com.portfolio.be.common.utils.JwtUtil
 import com.portfolio.be.entity.user.User
+import com.portfolio.be.feature.sign.dto.RefreshDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import com.portfolio.be.feature.user.repository.UserRepository
@@ -23,7 +24,7 @@ class SignServiceImpl(
 
     private val logger = LoggerFactory.getLogger(SignServiceImpl::class.java)
 
-    override fun signUp(signUpDTO: SignUpDTO): Boolean {
+    override fun signUp(signUpDTO: SignUpDTO): SignUpDTO.ResponseDTO {
         logger.info(":::: Start SignUp In SignServiceImpl:::: ")
 
         signUpDTO.password = this.passwordEncoder.encode(signUpDTO.password)
@@ -31,7 +32,9 @@ class SignServiceImpl(
         val user = User(signUpDTO)
         this.userRepository.save(user)
 
-        return true
+        return SignUpDTO.ResponseDTO(
+            true
+        )
     }
 
     override fun signIn(signInDTO:SignInDTO) : SignInDTO.ResponseDTO {
@@ -43,9 +46,15 @@ class SignServiceImpl(
         }
 
         val token = this.jwtUtil.createToken(SignTokenEnum.ACCESS, email)
-
+        val refreshToken = this.jwtUtil.createToken(SignTokenEnum.REFRESH)
         return SignInDTO.ResponseDTO(
-            token
+            token,
+            refreshToken
         )
     }
+
+    override fun refresh(refreshDTO: RefreshDTO): SignInDTO.ResponseDTO {
+        TODO("Not yet implemented")
+    }
+
 }

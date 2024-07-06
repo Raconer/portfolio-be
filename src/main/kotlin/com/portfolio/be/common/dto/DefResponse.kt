@@ -1,19 +1,21 @@
 package com.portfolio.be.common.dto
 
+import kotlinx.serialization.Serializable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
 
-data class DefResponse(
+@Serializable
+data class DefResponse<T>(
     val code:Int,
     val message:String,
-    val data:Any? = null
+    val data:T? = null
 ){
-    constructor(httpStatus: HttpStatus, data:Any?):this(httpStatus.value(), httpStatus.name, data)
+    constructor(httpStatus: HttpStatus, data:T?):this(httpStatus.value(), httpStatus.name, data)
 
     companion object {
-        fun ok(data:Any?): ResponseEntity<Any> {
+        fun <T> ok(data:T): ResponseEntity<Any> {
             return ResponseEntity.ok(DefResponse(HttpStatus.OK, data))
         }
 

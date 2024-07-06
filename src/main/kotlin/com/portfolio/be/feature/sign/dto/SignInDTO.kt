@@ -1,7 +1,9 @@
 package com.portfolio.be.feature.sign.dto
 
 import jakarta.validation.constraints.NotEmpty
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class SignInDTO(
     @field:NotEmpty
     var email:String,
@@ -14,6 +16,7 @@ data class SignInDTO(
     )
 
     data class ResponseDTO(
-        val token : String
+        val token : String,
+        val refreshToken : String
     )
 }

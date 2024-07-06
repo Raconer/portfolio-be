@@ -48,4 +48,10 @@ class SignController (
         logger.info(":::: Start SignIn :::: ")
         return this.signService.signIn(signIn)
     }
+
+    @PostMapping("/refresh")
+    fun refresh(){
+
+    }
+
 }
