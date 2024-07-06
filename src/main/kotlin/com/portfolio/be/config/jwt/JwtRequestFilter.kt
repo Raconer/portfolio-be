@@ -45,7 +45,9 @@ class JwtRequestFilter(
         val uri = request.requestURI
         logger.info(":::: Check JWT Filter : ${uri} ::::")
         return this.EXCLUDE_URL.stream().findFirst().filter { prefix ->
-            uri.startsWith(prefix)
+            val result = uri.startsWith(prefix)
+            logger.info(":::: Check JWT Filter Check : ${result} ::::")
+            result
         }.isPresent
     }
 }

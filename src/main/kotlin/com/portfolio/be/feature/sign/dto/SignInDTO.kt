@@ -15,6 +15,7 @@ data class SignInDTO(
         var password:String? = null
     )
 
+    @Serializable
     data class ResponseDTO(
         val token : String,
         val refreshToken : String

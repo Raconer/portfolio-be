@@ -1,5 +1,6 @@
 package com.portfolio.be.config
 
+import com.portfolio.be.common.utils.JwtUtil
 import com.portfolio.be.config.jwt.JwtAuthenticationEntryPoint
 import com.portfolio.be.config.jwt.JwtRequestFilter
 import org.springframework.context.annotation.Bean
@@ -16,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
-    private val jwtRequestFilter: JwtRequestFilter
+    private val jwtUtil: JwtUtil,
 ){
 
     @Bean
@@ -40,7 +41,7 @@ class SecurityConfig(
             }
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            }.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
+            }.addFilterBefore(JwtRequestFilter(jwtUtil), UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }

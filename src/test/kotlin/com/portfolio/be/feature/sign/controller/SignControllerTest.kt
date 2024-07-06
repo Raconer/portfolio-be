@@ -44,16 +44,13 @@ class SignControllerTest @Autowired constructor(
 
     @BeforeAll
     @Transactional
-    fun setup() {
-        // 회원가입
-        this.signUp()
+    fun setup() {}
 
-        // 로그인
-       this.signIn()
-    }
-
-    private fun signUp(){
-        // 회원가입 및 로그인 후 토큰 저장
+    @Test
+    @Order(1)
+    @Transactional
+    fun `회원가입`() {
+        // 회원가입 로직 (이미 @BeforeAll에서 실행됨)
         val signUpDTO = SignUpDTO(
             email = EMAIL,
             username = DataFaker.randomUsername(),
@@ -72,10 +69,16 @@ class SignControllerTest @Autowired constructor(
 
         val data = Json.decodeFromString<DefResponse<SignUpDTO.ResponseDTO>>(result.response.contentAsString)
 
-        IS_SIGNED = data.data?.success ?:false
+        assertTrue( data.data?.success ?:false)
     }
 
-    private fun signIn(){
+    @Test
+    @Order(2)
+    @Transactional
+    fun `로그인`() {
+
+        this.회원가입()
+
         val signInDTO = SignInDTO(
             email = EMAIL,
             password = Constants.PASSWORD
@@ -90,26 +93,13 @@ class SignControllerTest @Autowired constructor(
             .andDo(MockMvcResultHandlers.print())
             .andReturn()
 
-        val signInResDTO = this.objectMapper.readValue(result.response.contentAsString, SignInDTO.ResponseDTO::class.java)
-        TOKEN = signInResDTO.token
-        REFRESH_TOKEN = signInResDTO.refreshToken
+
+        val data =  Json.decodeFromString<DefResponse<SignInDTO.ResponseDTO>>(result.response.contentAsString)
+        TOKEN = data.data!!.token
+        REFRESH_TOKEN = data.data!!.refreshToken
         logger.info(":::: token : $TOKEN ::::")
         logger.info(":::: refreshToken : $REFRESH_TOKEN ::::")
-    }
 
-    @Test
-    @Order(1)
-    @Transactional
-    fun `회원가입`() {
-        // 회원가입 로직 (이미 @BeforeAll에서 실행됨)
-        assertTrue(IS_SIGNED)
-    }
-
-    @Test
-    @Order(2)
-    @Transactional
-    fun `로그인`() {
-        // 로그인 로직 (이미 @BeforeAll에서 실행됨)
         assertTrue(TOKEN != null && REFRESH_TOKEN != null)
     }
 
@@ -118,7 +108,9 @@ class SignControllerTest @Autowired constructor(
     @Transactional
     fun `리프레시`() {
         // GIVEN
-        assert(REFRESH_TOKEN != null)
+        this.로그인()
+
+        println(REFRESH_TOKEN)
         val refreshDTO = RefreshDTO(REFRESH_TOKEN!!)
         val jsonStr = Json.encodeToString(refreshDTO)
 
