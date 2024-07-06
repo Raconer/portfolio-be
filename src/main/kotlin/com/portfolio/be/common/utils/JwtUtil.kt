@@ -1,22 +1,37 @@
 package com.portfolio.be.common.utils
 
+import com.portfolio.be.common.Constants
 import com.portfolio.be.common.enums.SignTokenEnum
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.crypto.SecretKey
 
 @Component
-class JwtUtil {
+class JwtUtil(
+    private val redisTemplate: RedisTemplate<String, String>
+) {
     @Value("\${jwt.secret.key}")
     private val SECRET_KEY: String? = null
     @Value("\${jwt.access.expire}")
     private val ACCESS_EXPIRE: Long = 0
     @Value("\${jwt.refresh.expire}")
     private val REFRESH_EXPIRE: Long = 0
+
+    fun getRefreshExpire():Long{
+        return this.REFRESH_EXPIRE
+    }
+
+    fun createAuthToken(email:String):Pair<String, String>{
+        return Pair(
+            this.createToken(SignTokenEnum.ACCESS, email),
+            this.createToken(SignTokenEnum.REFRESH)
+        )
+    }
 
     fun createToken(type:SignTokenEnum, email:String? = null): String {
         val key = this.getSigningKey()
@@ -29,9 +44,8 @@ class JwtUtil {
             payloads["email"] = it
         }
 
-        expiration.time +=
-            if(type == SignTokenEnum.REFRESH) this.REFRESH_EXPIRE
-            else this.ACCESS_EXPIRE
+        expiration.time += if(type == SignTokenEnum.REFRESH) this.REFRESH_EXPIRE
+        else this.ACCESS_EXPIRE
 
         return Jwts.builder()
             .claims(payloads)

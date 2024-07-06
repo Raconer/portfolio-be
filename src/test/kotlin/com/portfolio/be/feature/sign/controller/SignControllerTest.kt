@@ -1,17 +1,25 @@
 package com.portfolio.be.feature.sign.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.portfolio.be.PortfolioBeApplicationTests
 import com.portfolio.be.common.Constants
-import com.portfolio.be.common.obj.Converter
+import com.portfolio.be.common.dto.DefResponse
 import com.portfolio.be.common.obj.DataFaker
+import com.portfolio.be.feature.sign.dto.RefreshDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -23,52 +31,94 @@ import org.springframework.transaction.annotation.Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class) // Order 어노테이션 적용
 class SignControllerTest @Autowired constructor(
     private val mock: MockMvc,
+    private val objectMapper: ObjectMapper
 ) : PortfolioBeApplicationTests() {
+
+    private val logger: Logger = LoggerFactory.getLogger(SignControllerTest::class.java.getName())
 
     private val PATH = "/sign"
     private val EMAIL = DataFaker.randomEmail()
+    private var IS_SIGNED = false
+    private var TOKEN: String? = null
+    private var REFRESH_TOKEN: String? = null
+
+    @BeforeAll
+    @Transactional
+    fun setup() {}
 
     @Test
     @Order(1)
     @Transactional
-    fun `회원 가입 테스트`(){
-        // GIVEN
+    fun `회원가입`() {
+        // 회원가입 로직 (이미 @BeforeAll에서 실행됨)
         val signUpDTO = SignUpDTO(
             email = EMAIL,
-            DataFaker.randomUsername(),
+            username = DataFaker.randomUsername(),
             password = Constants.PASSWORD
         )
-        val jsonStr = Converter.getJsonByObj(signUpDTO)
+        val jsonStr = Json.encodeToString(signUpDTO)
 
-        // WHEN & THEN
-        this.mock.perform(
+        // 회원가입
+        val result = this.mock.perform(
             MockMvcRequestBuilders.post("$PATH/up")
-            .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonStr)
-
         ).andExpect(MockMvcResultMatchers.status().isOk)
             .andDo(MockMvcResultHandlers.print())
+            .andReturn()
+
+        val data = Json.decodeFromString<DefResponse<SignUpDTO.ResponseDTO>>(result.response.contentAsString)
+
+        assertTrue( data.data?.success ?:false)
     }
 
     @Test
     @Order(2)
     @Transactional
-    fun `로그인 테스트`(){
-        // GIVEN
-        this.`회원 가입 테스트`()
+    fun `로그인`() {
+
+        this.회원가입()
 
         val signInDTO = SignInDTO(
             email = EMAIL,
             password = Constants.PASSWORD
         )
-        val jsonStr = Converter.getJsonByObj(signInDTO)
+        val signInJsonStr = Json.encodeToString(signInDTO)
+
+        val result: MvcResult = this.mock.perform(
+            MockMvcRequestBuilders.post("$PATH/in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(signInJsonStr)
+        ).andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(MockMvcResultHandlers.print())
+            .andReturn()
+
+
+        val data =  Json.decodeFromString<DefResponse<SignInDTO.ResponseDTO>>(result.response.contentAsString)
+        TOKEN = data.data!!.token
+        REFRESH_TOKEN = data.data!!.refreshToken
+        logger.info(":::: token : $TOKEN ::::")
+        logger.info(":::: refreshToken : $REFRESH_TOKEN ::::")
+
+        assertTrue(TOKEN != null && REFRESH_TOKEN != null)
+    }
+
+    @Test
+    @Order(3)
+    @Transactional
+    fun `리프레시`() {
+        // GIVEN
+        this.로그인()
+
+        println(REFRESH_TOKEN)
+        val refreshDTO = RefreshDTO(REFRESH_TOKEN!!)
+        val jsonStr = Json.encodeToString(refreshDTO)
 
         // WHEN & THEN
         this.mock.perform(
-            MockMvcRequestBuilders.post("$PATH/in")
+            MockMvcRequestBuilders.post("$PATH/refresh")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonStr)
-
         ).andExpect(MockMvcResultMatchers.status().isOk)
             .andDo(MockMvcResultHandlers.print())
     }

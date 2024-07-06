@@ -8,6 +8,8 @@ plugins {
     kotlin("kapt") version "1.9.23"
     // JPA 생성자 초기화 제거 용도
     kotlin("plugin.jpa") version "1.9.24"
+    // JSON
+    kotlin("plugin.serialization") version "1.9.23"
 }
 
 group = "com.portfolio"
@@ -45,6 +47,12 @@ dependencies {
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    // JSON
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
 
     // jasypt
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")

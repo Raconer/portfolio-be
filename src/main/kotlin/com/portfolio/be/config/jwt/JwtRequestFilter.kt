@@ -18,7 +18,7 @@ class JwtRequestFilter(
     private val jwtUtil: JwtUtil,
 ) : OncePerRequestFilter() {
 
-    private val log = LoggerFactory.getLogger(JwtRequestFilter::class.java)
+    private val logger = LoggerFactory.getLogger(JwtRequestFilter::class.java)
     private val SUB_LEN = Constants.TOKEN_PREFIX.length
     private val EXCLUDE_URL = arrayListOf("/sign")
 
@@ -26,7 +26,7 @@ class JwtRequestFilter(
                                   response: HttpServletResponse,
                                   filterChain: FilterChain) {
 
-        this.log.info(":::: Auth By Token ::::")
+        logger.info(":::: Auth By Token ::::")
         val bearerToken = request.getHeader(Constants.AUTHORIZATION)
 
         if (bearerToken != null && bearerToken.isNotEmpty() && bearerToken.startsWith(Constants.TOKEN_PREFIX)) {
@@ -42,10 +42,12 @@ class JwtRequestFilter(
     }
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        this.log.info(":::: Check JWT Filter ::::")
         val uri = request.requestURI
+        logger.info(":::: Check JWT Filter : ${uri} ::::")
         return this.EXCLUDE_URL.stream().findFirst().filter { prefix ->
-            uri.startsWith(prefix)
+            val result = uri.startsWith(prefix)
+            logger.info(":::: Check JWT Filter Check : ${result} ::::")
+            result
         }.isPresent
     }
 }

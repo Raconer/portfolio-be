@@ -2,6 +2,7 @@ package com.portfolio.be.feature.sign.controller
 
 import com.portfolio.be.common.dto.DefResponse
 import com.portfolio.be.feature.sign.controller.valid.SignUpValid
+import com.portfolio.be.feature.sign.dto.RefreshDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import com.portfolio.be.feature.sign.service.SignService
@@ -44,8 +45,21 @@ class SignController (
         @RequestBody
         @Valid
         signIn: SignInDTO
-    ) : SignInDTO.ResponseDTO {
+    ) : ResponseEntity<Any> {
         logger.info(":::: Start SignIn :::: ")
-        return this.signService.signIn(signIn)
+
+        return DefResponse.ok(this.signService.signIn(signIn))
     }
+
+    @PostMapping("/refresh")
+    fun refresh(
+        @RequestBody
+        @Valid
+        refreshDTO: RefreshDTO
+    ): ResponseEntity<Any> {
+        logger.info(":::: Start Refresh :::: ")
+
+        return ResponseEntity.ok(this.signService.refresh(refreshDTO))
+    }
+
 }

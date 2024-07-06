@@ -13,7 +13,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+  data:
+    redis:
+      host: ENC(zCoeE2vI2WkAwYKuFbwP7YN11ZpiLgdB)
+      port: 6379
 
 # JWT
 # 60000 = 1m

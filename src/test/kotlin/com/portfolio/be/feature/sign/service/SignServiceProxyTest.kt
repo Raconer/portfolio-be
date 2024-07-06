@@ -32,7 +32,7 @@ class SignServiceProxyTest @Autowired constructor(
             Constants.PASSWORD
         )
         // WHEN & THEN
-        assertTrue(this.signService.signUp(signUpDTO))
+        assertTrue(this.signService.signUp(signUpDTO).success)
 
     }
 
