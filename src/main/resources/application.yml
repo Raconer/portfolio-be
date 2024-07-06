@@ -23,10 +23,6 @@ spring:
   sql:
     init:
       schema-locations: classpath:sql/schema.sql
-  data:
-    redis:
-      host: localhost
-      port: 6379
   devtools:
     restart:
       enabled: false
