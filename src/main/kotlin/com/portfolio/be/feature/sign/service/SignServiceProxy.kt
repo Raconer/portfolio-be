@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
 
-@Service
 @Primary
+@Service
 class SignServiceProxy (
     private val userService: UserService,
     private val userRepository: UserRepository,

@@ -1,6 +1,5 @@
 package com.portfolio.be.common.utils
 
-import com.portfolio.be.common.Constants
 import com.portfolio.be.common.enums.SignTokenEnum
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
