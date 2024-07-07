@@ -19,7 +19,6 @@ class SecurityConfig(
     private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
     private val jwtUtil: JwtUtil,
 ){
-
     @Bean
     fun passwordEncoder():PasswordEncoder{
         return BCryptPasswordEncoder()
@@ -28,13 +27,13 @@ class SecurityConfig(
     @Bean
     @Throws(Exception::class)
     fun filterChain(http:HttpSecurity) : DefaultSecurityFilterChain {
-        http
-            .csrf{
+        http.csrf{
                 it.disable()
             }
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/sign/**").permitAll()
+                    .requestMatchers("/swagger-ui/index.html","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
             }.exceptionHandling {
                 it.authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -45,5 +44,6 @@ class SecurityConfig(
 
         return http.build()
     }
+
 
 }

@@ -3,7 +3,7 @@ server:
   shutdown: graceful
   error:
     whitelabel:
-      enabled: false
+      enabled: true
 spring:
   application:
     name: portfolio-be
@@ -31,10 +31,13 @@ jasypt:
     bean: jasyptStringEncryptor
 springdoc:
   api-docs:
-    enabled: false
+    enabled: true
   swagger-ui:
-    path: /custom/swagger.html
+    path: /swagger-ui/index.html
     supported-submit-methods: []
+    tags-sorter: alpha
+    operations-sorter: method
+    groups-order: ASC
 decorator:
   datasource:
     p6spy:
