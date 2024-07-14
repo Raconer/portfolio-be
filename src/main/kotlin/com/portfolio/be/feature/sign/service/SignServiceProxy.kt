@@ -57,7 +57,7 @@ class SignServiceProxy (
             throw BadCredentialsException(Constants.SIGN_IN_NOT_MATCH)
         }
 
-        return this.getSignRes(email)
+        return this.getSignRes(signInfo)
     }
 
     override fun refresh(refreshDTO: RefreshDTO): SignInDTO.ResponseDTO {
@@ -66,13 +66,15 @@ class SignServiceProxy (
         this.redisTemplate.opsForValue().get(key)?.let { email  ->
             email as String
             this.redisTemplate.delete(key)
-            return this.getSignRes(email)
+            val signInfo:SignDTO = this.userService.loadUserByUsername(email)
+            return this.getSignRes(signInfo)
         }
 
         throw UsernameNotFoundException(Constants.SIGN_NOT_FOUNT_USER)
     }
 
-    private fun getSignRes(email:String):SignInDTO.ResponseDTO{
+    private fun getSignRes(signDTO:SignDTO):SignInDTO.ResponseDTO{
+        val email = signDTO.email
         if(this.userRepository.countByEmail(email) == 1){
             val (token, refreshToken) = this.jwtUtil.createAuthToken(email)
 

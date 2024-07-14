@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class SignDTO (
-    private var email:String,
+    var email:String,
     private var password:String? = null
 ):UserDetails{
     constructor(signInDTO: SignInDTO.InfoDTO) : this(
