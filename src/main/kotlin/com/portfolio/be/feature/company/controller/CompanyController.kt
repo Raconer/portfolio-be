@@ -1,6 +1,9 @@
 package com.portfolio.be.feature.company.controller
 
+import com.portfolio.be.common.dto.page.PagingDTO
 import com.portfolio.be.feature.company.service.CompanyService
+import org.slf4j.LoggerFactory
+import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -8,6 +11,8 @@ import org.springframework.web.bind.annotation.*
 class CompanyController(
     private val companyService: CompanyService
 ) {
+
+    private val logger = LoggerFactory.getLogger(CompanyController::class.java)
 
     // CREATE
     @PostMapping
@@ -22,8 +27,10 @@ class CompanyController(
     }
 
     @GetMapping
-    fun getList(){
-        TODO("다건 조회")
+    fun getList(
+        page:PagingDTO
+    ){
+        logger.info(":::: 다건 조회 ::::")
     }
 
     // UPDATE

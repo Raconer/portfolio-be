@@ -1,4 +1,4 @@
-package com.portfolio.be.common.dto
+package com.portfolio.be.common.dto.response
 
 import kotlinx.serialization.Serializable
 import org.springframework.http.HttpStatus

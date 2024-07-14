@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 class UserService(
     private val userRepositoryImpl: UserRepositoryImpl
 ) : UserDetailsService{
-    override fun loadUserByUsername(email: String): UserDetails {
+    override fun loadUserByUsername(email: String): SignDTO {
         val signInfo:SignInDTO.InfoDTO = this.userRepositoryImpl.findSignIn(email) ?: run {
             throw BadCredentialsException(Constants.SIGN_NOT_FOUNT_USER)
         }

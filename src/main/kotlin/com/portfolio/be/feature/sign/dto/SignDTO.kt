@@ -12,8 +12,8 @@ class SignDTO (
         password = signInDTO.password
     )
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("Not yet implemented")
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
+       return null
     }
 
     override fun getPassword(): String? {
