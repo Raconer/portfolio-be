@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class SignDTO (
-    private var email:String,
+    var email:String,
     private var password:String? = null
 ):UserDetails{
     constructor(signInDTO: SignInDTO.InfoDTO) : this(
@@ -12,8 +12,8 @@ class SignDTO (
         password = signInDTO.password
     )
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("Not yet implemented")
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
+       return null
     }
 
     override fun getPassword(): String? {

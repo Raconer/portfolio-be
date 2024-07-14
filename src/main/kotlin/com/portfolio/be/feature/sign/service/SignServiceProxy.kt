@@ -4,6 +4,7 @@ import com.portfolio.be.common.Constants
 import com.portfolio.be.common.utils.JwtUtil
 import com.portfolio.be.entity.user.User
 import com.portfolio.be.feature.sign.dto.RefreshDTO
+import com.portfolio.be.feature.sign.dto.SignDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import com.portfolio.be.feature.user.repository.UserRepository
@@ -46,16 +47,17 @@ class SignServiceProxy (
         )
     }
     // READ
+    // TODO : 토큰 인증 Redis 구조 확인 필요
     override fun signIn(signInDTO: SignInDTO) : SignInDTO.ResponseDTO {
 
         val email = signInDTO.email
-        val userInfo = this.userService.loadUserByUsername(email)
+        val signInfo:SignDTO = this.userService.loadUserByUsername(email)
 
-        if(passwordEncoder.matches(userInfo.password, signInDTO.password)){
+        if(passwordEncoder.matches(signInfo.password, signInDTO.password)){
             throw BadCredentialsException(Constants.SIGN_IN_NOT_MATCH)
         }
 
-        return this.getSignRes(email)
+        return this.getSignRes(signInfo)
     }
 
     override fun refresh(refreshDTO: RefreshDTO): SignInDTO.ResponseDTO {
@@ -64,13 +66,15 @@ class SignServiceProxy (
         this.redisTemplate.opsForValue().get(key)?.let { email  ->
             email as String
             this.redisTemplate.delete(key)
-            return this.getSignRes(email)
+            val signInfo:SignDTO = this.userService.loadUserByUsername(email)
+            return this.getSignRes(signInfo)
         }
 
         throw UsernameNotFoundException(Constants.SIGN_NOT_FOUNT_USER)
     }
 
-    private fun getSignRes(email:String):SignInDTO.ResponseDTO{
+    private fun getSignRes(signDTO:SignDTO):SignInDTO.ResponseDTO{
+        val email = signDTO.email
         if(this.userRepository.countByEmail(email) == 1){
             val (token, refreshToken) = this.jwtUtil.createAuthToken(email)
 

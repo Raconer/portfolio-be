@@ -1,6 +1,6 @@
 package com.portfolio.be.feature.sign.controller
 
-import com.portfolio.be.common.dto.DefResponse
+import com.portfolio.be.common.dto.response.DefResponse
 import com.portfolio.be.feature.sign.controller.valid.SignUpValid
 import com.portfolio.be.feature.sign.dto.RefreshDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
