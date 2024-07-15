@@ -4,6 +4,8 @@ server:
   error:
     whitelabel:
       enabled: true
+  servlet:
+    context-path: /api
 spring:
   application:
     name: portfolio-be
@@ -33,7 +35,7 @@ springdoc:
   api-docs:
     enabled: true
   swagger-ui:
-    path: /swagger-ui/index.html
+    path: /index.html
     supported-submit-methods: []
     tags-sorter: alpha
     operations-sorter: method

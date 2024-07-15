@@ -2,12 +2,17 @@ package com.portfolio.be.feature.company.controller
 
 import com.portfolio.be.common.dto.page.PagingDTO
 import com.portfolio.be.feature.company.service.CompanyService
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto
 import org.springframework.web.bind.annotation.*
 
+@Tag(
+    name = "경력",
+    description = "회사 경력"
+)
 @RestController
-@RequestMapping(("/company"))
+@RequestMapping(("/v1/company"))
 class CompanyController(
     private val companyService: CompanyService
 ) {
