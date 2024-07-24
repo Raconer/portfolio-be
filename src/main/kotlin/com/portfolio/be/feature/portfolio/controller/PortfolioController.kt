@@ -1,10 +1,15 @@
 package com.portfolio.be.feature.portfolio.controller
 
 import com.portfolio.be.feature.portfolio.service.PortfolioService
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 
+@Tag(
+    name = "포트폴리오",
+    description = "포트폴리오 관리"
+)
 @RestController
-@RequestMapping("/portfolio")
+@RequestMapping("/v1/portfolio")
 class PortfolioController(
     private val portfolioService: PortfolioService
 ) {

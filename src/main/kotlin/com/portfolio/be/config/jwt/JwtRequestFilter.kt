@@ -18,7 +18,7 @@ class JwtRequestFilter(
 
     private val logger = LoggerFactory.getLogger(JwtRequestFilter::class.java)
     private val SUB_LEN = Constants.TOKEN_PREFIX.length
-    private val EXCLUDE_URL = arrayListOf("/sign","/swagger-ui", "/v3/api-docs")
+    private val EXCLUDE_URL = arrayListOf("/sign","/swagger-ui", "/api/swagger-ui", "/v3/api-docs")
 
     override fun doFilterInternal(request: HttpServletRequest,
                                   response: HttpServletResponse,
@@ -43,7 +43,7 @@ class JwtRequestFilter(
         val uri = request.requestURI
         logger.info(":::: Check JWT Filter : ${uri} ::::")
         return this.EXCLUDE_URL.any { prefix ->
-            val result = uri.startsWith(prefix)
+            val result = uri.startsWith("/api$prefix")
             result
         }
     }

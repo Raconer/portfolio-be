@@ -6,6 +6,7 @@ import com.portfolio.be.feature.sign.dto.RefreshDTO
 import com.portfolio.be.feature.sign.dto.SignInDTO
 import com.portfolio.be.feature.sign.dto.SignUpDTO
 import com.portfolio.be.feature.sign.service.SignService
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+@Tag(
+    name = "인증",
+    description = "로그인 및 토큰 인증"
+)
 @RestController
-@RequestMapping("/sign")
+@RequestMapping("/v1/sign")
 class SignController (
     private val signService: SignService,
     private val signUpValid: SignUpValid

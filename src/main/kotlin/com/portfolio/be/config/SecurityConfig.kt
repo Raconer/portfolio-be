@@ -32,8 +32,8 @@ class SecurityConfig(
             }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/sign/**").permitAll()
-                    .requestMatchers("/swagger-ui/index.html","/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    .requestMatchers("/api/sign/**").permitAll()
+                    .requestMatchers("/api/swagger-ui/index.html","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
             }.exceptionHandling {
                 it.authenticationEntryPoint(jwtAuthenticationEntryPoint)

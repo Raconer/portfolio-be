@@ -1,13 +1,23 @@
 package com.portfolio.be.feature.company.controller
 
 import com.portfolio.be.common.dto.page.PagingDTO
+import com.portfolio.be.feature.company.dto.CreateDTO
 import com.portfolio.be.feature.company.service.CompanyService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto
 import org.springframework.web.bind.annotation.*
 
+@Tag(
+    name = "경력",
+    description = "회사 경력"
+)
 @RestController
-@RequestMapping(("/company"))
+@RequestMapping(("/v1/company"))
 class CompanyController(
     private val companyService: CompanyService
 ) {
@@ -15,8 +25,20 @@ class CompanyController(
     private val logger = LoggerFactory.getLogger(CompanyController::class.java)
 
     // CREATE
+    @Operation(summary = "경력 추가", description = "사용자 회사 경력 추가")
+    @ApiResponses(
+        ApiResponse(
+            responseCode = "200",
+            description = "성공"
+        )
+    )
     @PostMapping
-    fun create(){
+    fun create(
+        @RequestBody
+        @Valid
+        createDTO: CreateDTO
+    ){
+
         TODO("추가")
     }
 
