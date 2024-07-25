@@ -1,4 +1,4 @@
-package com.portfolio.be.feature.user.constroller
+package com.portfolio.be.feature.user.controller
 
 import com.portfolio.be.feature.sign.dto.SignDTO
 import io.swagger.v3.oas.annotations.tags.Tag

@@ -18,7 +18,7 @@ class JwtRequestFilter(
 
     private val logger = LoggerFactory.getLogger(JwtRequestFilter::class.java)
     private val SUB_LEN = Constants.TOKEN_PREFIX.length
-    private val EXCLUDE_URL = arrayListOf("/sign","/swagger-ui", "/api/swagger-ui", "/v3/api-docs")
+    private val EXCLUDE_URL = arrayListOf("/v1/sign","/swagger-ui", "/api/swagger-ui", "/v3/api-docs")
 
     override fun doFilterInternal(request: HttpServletRequest,
                                   response: HttpServletResponse,
@@ -32,6 +32,7 @@ class JwtRequestFilter(
             this.jwtUtil.getPayLoad(token)?.let { claims: Claims ->
                 val email: String = claims["email"] as String
                 val signDTO = SignDTO(email = email)
+                logger.info(":::: Login Email : $email ::::")
                 val authenticationToken = UsernamePasswordAuthenticationToken(signDTO, null, signDTO.authorities)
                 SecurityContextHolder.getContext().authentication = authenticationToken
             }

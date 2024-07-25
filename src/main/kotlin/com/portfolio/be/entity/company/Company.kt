@@ -2,6 +2,7 @@ package com.portfolio.be.entity.company
 
 import com.portfolio.be.entity.common.CommonEntity
 import com.portfolio.be.entity.user.User
+import com.portfolio.be.feature.company.dto.CreateDTO
 import jakarta.persistence.*
 import java.time.LocalDate
 
@@ -22,4 +23,10 @@ class Company(
     val hireDate:LocalDate,
     @Column(nullable = true)
     var quitDate:LocalDate? = null
-):CommonEntity()
+):CommonEntity() {
+
+//    constructor(createDTO: CreateDTO):this(){
+//
+//    }
+
+}

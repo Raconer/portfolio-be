@@ -1,6 +1,7 @@
 package com.portfolio.be.feature.sign.dto
 
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class SignDTO (
@@ -13,7 +14,10 @@ class SignDTO (
     )
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
-       return null
+      /*  val authorities = arrayListOf<GrantedAuthority>()
+        authorities.add(SimpleGrantedAuthority("ROLE_USER"))
+        return authorities*/
+        return null
     }
 
     override fun getPassword(): String? {
@@ -25,18 +29,18 @@ class SignDTO (
     }
 
     override fun isAccountNonExpired(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun isAccountNonLocked(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun isCredentialsNonExpired(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun isEnabled(): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 }
