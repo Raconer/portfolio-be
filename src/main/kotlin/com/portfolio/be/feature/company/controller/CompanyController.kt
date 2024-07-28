@@ -51,6 +51,8 @@ class CompanyController(
 
     @GetMapping
     fun getList(
+        @ModelAttribute
+        @Valid
         page:PagingDTO
     ){
         logger.info(":::: 다건 조회 ::::")

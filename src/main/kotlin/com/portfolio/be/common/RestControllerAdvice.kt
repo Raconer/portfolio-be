@@ -1,6 +1,8 @@
 package com.portfolio.be.common
 
 import com.fasterxml.jackson.core.JsonParseException
+import com.portfolio.be.common.dto.response.DefResponse
+import com.portfolio.be.common.dto.response.ValidDTO
 import org.slf4j.LoggerFactory
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
@@ -19,12 +21,15 @@ class RestControllerAdvice {
     private val logger = LoggerFactory.getLogger(RestControllerAdvice::class.java)
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationExceptions(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, String>> {
+    fun handleValidationExceptions(ex: MethodArgumentNotValidException): ResponseEntity<Any> {
         logger.info("MethodArgumentNotValidException exception: {}", ex.message)
-        val errors = ex.bindingResult.fieldErrors.associate {
-            it.field to (it.defaultMessage ?: "Unknown error")
+
+        val errors = arrayListOf<ValidDTO>()
+        ex.bindingResult.fieldErrors.forEach {
+            errors.add(ValidDTO(it.field, it.defaultMessage))
         }
-        return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
+
+        return DefResponse.valid(errors)
     }
 
     @ExceptionHandler(JsonParseException::class)

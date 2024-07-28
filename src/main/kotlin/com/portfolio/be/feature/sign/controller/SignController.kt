@@ -38,7 +38,7 @@ class SignController (
         logger.info(":::: Start SignUp :::: ")
         signUpValid.validate(signUpDTO, result)
         if (result.hasErrors()) {
-            return DefResponse.valid(result.allErrors)
+            return DefResponse.validObjectErrors(result.allErrors)
         }
 
         return DefResponse.ok(this.signService.signUp(signUpDTO))
