@@ -36,11 +36,7 @@ class CompanyController(
         @RequestBody
         @Valid
         createDTO: CreateDTO
-    ):ResponseEntity<Any>{
-
-        return ResponseEntity.ok(null)
-        @RequestBody @Valid createDTO: CreateDTO
-    ) : ResponseEntity<Any> {
+    ): ResponseEntity<Any> {
         this.companyService.create(createDTO)
         return ResponseEntity.ok(null)
     }
@@ -57,6 +53,8 @@ class CompanyController(
 
     @GetMapping
     fun getList(
+        @ModelAttribute
+        @Valid
         page:PagingDTO
     ){
         logger.info(":::: 다건 조회 ::::")
