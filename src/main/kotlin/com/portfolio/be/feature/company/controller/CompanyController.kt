@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @Tag(
@@ -37,9 +38,9 @@ class CompanyController(
         @RequestBody
         @Valid
         createDTO: CreateDTO
-    ){
+    ):ResponseEntity<Any>{
 
-        TODO("추가")
+        return ResponseEntity.ok(null)
     }
 
     // READ
@@ -50,6 +51,8 @@ class CompanyController(
 
     @GetMapping
     fun getList(
+        @ModelAttribute
+        @Valid
         page:PagingDTO
     ){
         logger.info(":::: 다건 조회 ::::")

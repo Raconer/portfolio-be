@@ -32,7 +32,7 @@ class SecurityConfig(
             }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/api/sign/**").permitAll()
+                    .requestMatchers("/v1/sign/**").permitAll()
                     .requestMatchers("/api/swagger-ui/index.html","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
             }.exceptionHandling {

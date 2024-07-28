@@ -19,13 +19,19 @@ data class DefResponse<T>(
             return ResponseEntity.ok(DefResponse(HttpStatus.OK, data))
         }
 
-        fun valid(errors: List<ObjectError>): ResponseEntity<Any> {
+        fun validObjectErrors(errors: List<ObjectError>):ResponseEntity<Any> {
+            val errorsList = errors.map {
+                ValidDTO(it.objectName, it.defaultMessage)
+            }
+
+            return this.valid(errorsList)
+        }
+        fun valid(errors: List<ValidDTO>): ResponseEntity<Any> {
             val validList = arrayListOf<ValidDTO>()
 
             errors.forEach{ error ->
-                println(error)
-                error as FieldError
-                val valid = ValidDTO(error.field, error.defaultMessage)
+
+                val valid = ValidDTO(error.field, error.message)
 
                 validList.add(valid)
             }
