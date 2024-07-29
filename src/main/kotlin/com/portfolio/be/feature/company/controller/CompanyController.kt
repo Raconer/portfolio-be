@@ -33,8 +33,10 @@ class CompanyController(
         ApiResponse(responseCode = "200", description = "성공")
     )
     fun create(
-        @RequestBody @Valid createDTO: CreateDTO
-    ) : ResponseEntity<Any> {
+        @RequestBody
+        @Valid
+        createDTO: CreateDTO
+    ): ResponseEntity<Any> {
         this.companyService.create(createDTO)
         return ResponseEntity.ok(null)
     }
@@ -51,6 +53,8 @@ class CompanyController(
 
     @GetMapping
     fun getList(
+        @ModelAttribute
+        @Valid
         page:PagingDTO
     ){
         logger.info(":::: 다건 조회 ::::")
